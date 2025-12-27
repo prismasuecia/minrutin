@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Allow bypass via env var
+if [[ "${ALLOW_PUSH:-}" == "1" ]]; then
+  exit 0
+fi
+
+# Allow bypass via flag file in repo root
+if [[ -f ".allow-push" ]]; then
+  exit 0
+fi
+
+echo "Push blocked by pre-push hook. Create .allow-push or run ALLOW_PUSH=1 git push to bypass."
+exit 1
