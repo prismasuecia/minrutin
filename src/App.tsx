@@ -286,6 +286,9 @@ export default function App() {
       )}
       <div className="app-logo">
         <img src="/imag de, Firefly Upscaler, 2x skala.png" alt="Logga" />
+        <p className="app-credits">
+          Min rutin är ett digitalt hjälpmedel utvecklat av Prisma Utbildning för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
+        </p>
       </div>
     </div>
   );
