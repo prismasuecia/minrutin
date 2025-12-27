@@ -1,0 +1,43 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Alarm clock body -->
+  <circle cx="256" cy="260" r="110" fill="#c9a583"/>
+  
+  <!-- Clock face -->
+  <circle cx="256" cy="260" r="95" fill="#f5e4d1"/>
+  
+  <!-- Hour markers (small circles at cardinal points) -->
+  <circle cx="256" cy="175" r="6" fill="#a58a70"/>
+  <circle cx="341" cy="260" r="6" fill="#a58a70"/>
+  <circle cx="256" cy="345" r="6" fill="#a58a70"/>
+  <circle cx="171" cy="260" r="6" fill="#a58a70"/>
+  
+  <!-- Hour hand -->
+  <rect x="252" y="220" width="8" height="50" rx="4" fill="#a58a70"/>
+  
+  <!-- Minute hand -->
+  <rect x="254" y="160" width="4" height="110" rx="2" fill="#a58a70"/>
+  
+  <!-- Center dot -->
+  <circle cx="256" cy="260" r="8" fill="#a58a70"/>
+  
+  <!-- Left bell -->
+  <circle cx="140" cy="180" r="20" fill="#d89860"/>
+  <path d="M 130 170 Q 120 160 115 150" fill="none" stroke="#d89860" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  
+  <!-- Right bell -->
+  <circle cx="372" cy="180" r="20" fill="#d89860"/>
+  <path d="M 382 170 Q 392 160 397 150" fill="none" stroke="#d89860" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  
+  <!-- Legs/stand (simple) -->
+  <line x1="200" y1="355" x2="180" y2="380" stroke="#a58a70" stroke-width="6" stroke-linecap="round"/>
+  <line x1="312" y1="355" x2="332" y2="380" stroke="#a58a70" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Clock highlight -->
+  <circle cx="256" cy="260" r="95" fill="none" stroke="#f5e4d1" stroke-width="2" opacity="0.3"/>
+</svg>

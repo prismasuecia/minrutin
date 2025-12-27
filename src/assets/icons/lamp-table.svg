@@ -1,0 +1,37 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Lamp base -->
+  <rect x="200" y="360" width="112" height="35" rx="8" fill="#c9a583"/>
+  
+  <!-- Lamp pole -->
+  <rect x="244" y="280" width="24" height="85" rx="12" fill="#a58a70"/>
+  
+  <!-- Lamp shade (cone) -->
+  <path d="M 180 280 L 200 180 L 312 180 L 332 280 Z" fill="#d89860"/>
+  
+  <!-- Lamp shade highlight -->
+  <path d="M 190 250 L 205 190 L 220 195 L 210 245 Z" fill="#e8a968" opacity="0.4"/>
+  
+  <!-- Light glow inside shade -->
+  <ellipse cx="256" cy="200" rx="45" ry="30" fill="#f0b3d6" opacity="0.6"/>
+  
+  <!-- Light rays emanating outward -->
+  <line x1="180" y1="240" x2="120" y2="200" stroke="#f0b3d6" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <line x1="190" y1="180" x2="140" y2="120" stroke="#f0b3d6" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <line x1="256" y1="160" x2="256" y2="90" stroke="#f0b3d6" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <line x1="322" y1="180" x2="372" y2="120" stroke="#f0b3d6" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <line x1="332" y1="240" x2="392" y2="200" stroke="#f0b3d6" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Book on desk under lamp -->
+  <rect x="140" y="340" width="80" height="60" rx="6" fill="#b5e5d0"/>
+  <rect x="140" y="340" width="80" height="8" fill="#9dd4c3" opacity="0.5"/>
+  
+  <!-- Second book -->
+  <rect x="260" y="350" width="70" height="50" rx="5" fill="#9dd4c3" opacity="0.7"/>
+  <rect x="260" y="350" width="70" height="6" fill="#7db59c" opacity="0.4"/>
+</svg>

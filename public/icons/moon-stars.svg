@@ -1,0 +1,52 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Moon shape (crescent) -->
+  <g>
+    <!-- Large yellow moon -->
+    <circle cx="260" cy="220" r="90" fill="#f0b3d6"/>
+    
+    <!-- Night shadow (creates crescent effect) -->
+    <circle cx="290" cy="200" r="85" fill="#f5f1ed" opacity="0.9"/>
+  </g>
+  
+  <!-- Stars scattered around moon -->
+  <!-- Star 1 (top left) -->
+  <g transform="translate(140, 120)">
+    <circle cx="0" cy="0" r="6" fill="#9dd4c3" opacity="0.7"/>
+    <circle cx="-2" cy="-8" r="3" fill="#9dd4c3" opacity="0.5"/>
+    <circle cx="8" cy="-2" r="3" fill="#9dd4c3" opacity="0.5"/>
+  </g>
+  
+  <!-- Star 2 (top right) -->
+  <g transform="translate(360, 140)">
+    <circle cx="0" cy="0" r="5" fill="#9dd4c3" opacity="0.6"/>
+    <circle cx="-2" cy="-7" r="2" fill="#9dd4c3" opacity="0.4"/>
+    <circle cx="6" cy="-1" r="2" fill="#9dd4c3" opacity="0.4"/>
+  </g>
+  
+  <!-- Star 3 (bottom left) -->
+  <g transform="translate(160, 350)">
+    <circle cx="0" cy="0" r="5" fill="#b5e5d0" opacity="0.6"/>
+    <circle cx="-1" cy="-6" r="2" fill="#b5e5d0" opacity="0.4"/>
+    <circle cx="5" cy="-1" r="2" fill="#b5e5d0" opacity="0.4"/>
+  </g>
+  
+  <!-- Star 4 (right side) -->
+  <g transform="translate(380, 280)">
+    <circle cx="0" cy="0" r="6" fill="#b5e5d0" opacity="0.7"/>
+    <circle cx="-2" cy="-8" r="3" fill="#b5e5d0" opacity="0.5"/>
+    <circle cx="8" cy="-1" r="3" fill="#b5e5d0" opacity="0.5"/>
+  </g>
+  
+  <!-- Moon highlight (creates 3D effect) -->
+  <ellipse cx="200" cy="180" rx="30" ry="40" fill="#fce4d1" opacity="0.3"/>
+  
+  <!-- Soft sleep clouds suggestion -->
+  <path d="M 150 400 Q 160 390 175 395 Q 185 385 200 395" fill="none" stroke="#e8d9cc" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+  <path d="M 330 400 Q 340 390 355 395 Q 365 385 380 395" fill="none" stroke="#e8d9cc" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+</svg>

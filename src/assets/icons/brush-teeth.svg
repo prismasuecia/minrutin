@@ -1,0 +1,26 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Toothbrush handle -->
+  <rect x="190" y="280" width="50" height="160" rx="25" fill="#c9a583"/>
+  
+  <!-- Toothbrush bristles -->
+  <g fill="#9dd4c3">
+    <!-- Top bristles -->
+    <rect x="175" y="220" width="12" height="65" rx="6" fill="#9dd4c3" opacity="0.8"/>
+    <rect x="195" y="210" width="12" height="75" rx="6" fill="#9dd4c3"/>
+    <rect x="215" y="215" width="12" height="70" rx="6" fill="#9dd4c3"/>
+    <rect x="235" y="210" width="12" height="75" rx="6" fill="#9dd4c3"/>
+    <rect x="255" y="220" width="12" height="65" rx="6" fill="#9dd4c3" opacity="0.8"/>
+  </g>
+  
+  <!-- Toothpaste dab on bristles -->
+  <ellipse cx="215" cy="200" rx="35" ry="25" fill="#f0b3d6" opacity="0.7"/>
+  
+  <!-- Highlight on handle for depth -->
+  <rect x="190" y="280" width="50" height="12" rx="25" fill="#d9b59a" opacity="0.4"/>
+</svg>

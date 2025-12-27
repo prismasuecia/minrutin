@@ -1,0 +1,43 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Bathtub -->
+  <path d="M 150 220 L 150 380 Q 150 420 190 420 L 322 420 Q 362 420 362 380 L 362 220" 
+        fill="none" stroke="#c9a583" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Water inside tub -->
+  <ellipse cx="256" cy="340" rx="95" ry="50" fill="#9dd4c3" opacity="0.6"/>
+  
+  <!-- Water wave texture -->
+  <path d="M 170 310 Q 190 300 210 310 T 250 310 T 290 310 T 330 310" 
+        fill="none" stroke="#7db59c" stroke-width="3" opacity="0.4" stroke-linecap="round"/>
+  
+  <!-- Water droplets/splashes -->
+  <circle cx="140" cy="240" r="8" fill="#b5e5d0" opacity="0.7"/>
+  <circle cx="380" cy="260" r="7" fill="#b5e5d0" opacity="0.6"/>
+  <circle cx="200" cy="190" r="6" fill="#b5e5d0" opacity="0.5"/>
+  <circle cx="320" cy="200" r="7" fill="#b5e5d0" opacity="0.6"/>
+  
+  <!-- Person/child in tub (simple shape) -->
+  <circle cx="256" cy="300" r="35" fill="#d9b59a"/>
+  
+  <!-- Head outline -->
+  <circle cx="256" cy="270" r="30" fill="#d9b59a"/>
+  
+  <!-- Simple facial feature -->
+  <circle cx="245" cy="265" r="4" fill="#a58a70"/>
+  <circle cx="267" cy="265" r="4" fill="#a58a70"/>
+  
+  <!-- Hair/head detail -->
+  <path d="M 235 250 Q 256 235 277 250" fill="none" stroke="#a58a70" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Tub foot (left) -->
+  <ellipse cx="160" cy="420" rx="18" ry="12" fill="#a58a70" opacity="0.5"/>
+  
+  <!-- Tub foot (right) -->
+  <ellipse cx="352" cy="420" rx="18" ry="12" fill="#a58a70" opacity="0.5"/>
+</svg>

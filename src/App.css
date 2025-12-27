@@ -1,0 +1,138 @@
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FDFCF6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  position: relative;
+}
+
+.app-logo {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.app-logo img {
+  max-width: 80px;
+  height: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.app-logo img:hover {
+  opacity: 1;
+}
+
+.app-loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FDFCF6;
+  font-size: 24px;
+  color: #666;
+}
+
+.start-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.start-icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+}
+
+.app-title {
+  font-size: 56px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 32px 0;
+  letter-spacing: -0.5px;
+}
+
+.greeting {
+  font-size: 36px;
+  color: #555;
+  margin: 0 0 48px 0;
+  font-weight: 500;
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.btn-large {
+  background-color: #E5E5E5;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 24px 24px;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.btn-large:hover {
+  background-color: #D0D0D0;
+}
+
+.btn-large:active {
+  background-color: #C0C0C0;
+}
+
+.child-selector {
+  margin-top: 64px;
+  width: 100%;
+}
+
+.child-selector p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.children-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-child {
+  background-color: #E5E5E5;
+  color: #333;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-child:hover {
+  background-color: #D0D0D0;
+}
+
+.btn-child.active {
+  background-color: #B5E5D0;
+  border-color: #6cdba7;
+}

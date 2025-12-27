@@ -1,0 +1,11 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" fill="#f5f1ed" rx="80"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="450" rx="140" ry="35" fill="#a58a70" opacity="0.3"/>
+  
+  <!-- Star -->
+  <path d="M 256 100 L 310 220 L 435 235 L 330 325 L 360 450 L 256 390 L 152 450 L 182 325 L 77 235 L 202 220 Z" 
+        fill="#f0b3d6" stroke="#d89860" stroke-width="6" stroke-linejoin="round"/>
+</svg>

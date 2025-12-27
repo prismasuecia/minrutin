@@ -1,0 +1,52 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Bed frame -->
+  <rect x="130" y="280" width="252" height="180" rx="15" fill="#a58a70"/>
+  <rect x="140" y="290" width="232" height="160" rx="12" fill="#c9a583"/>
+  
+  <!-- Mattress -->
+  <rect x="150" y="300" width="212" height="140" rx="10" fill="#d89860"/>
+  
+  <!-- Mattress highlight -->
+  <rect x="150" y="300" width="212" height="20" rx="10" fill="#e8a968" opacity="0.3"/>
+  
+  <!-- Pillow -->
+  <rect x="160" y="310" width="192" height="50" rx="10" fill="#e8d9cc"/>
+  <rect x="160" y="310" width="192" height="12" rx="10" fill="#f5e4d1" opacity="0.5"/>
+  
+  <!-- Blanket/sheet (folded) -->
+  <path d="M 160 360 L 150 390 L 360 390 L 350 360 Q 330 375 256 380 Q 180 375 160 360" fill="#b5e5d0" opacity="0.7"/>
+  
+  <!-- Blanket fold detail -->
+  <path d="M 200 365 Q 220 375 256 378 Q 292 375 312 365" fill="none" stroke="#9dd4c3" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+  
+  <!-- Teddy bear sitting on bed -->
+  <g transform="translate(100, 240)">
+    <!-- Bear body -->
+    <ellipse cx="60" cy="80" rx="35" ry="45" fill="#c9a583"/>
+    <!-- Bear head -->
+    <circle cx="60" cy="30" r="30" fill="#c9a583"/>
+    <!-- Bear ears -->
+    <circle cx="35" cy="10" r="12" fill="#c9a583"/>
+    <circle cx="85" cy="10" r="12" fill="#c9a583"/>
+    <!-- Inner ears -->
+    <circle cx="35" cy="12" r="6" fill="#b89570"/>
+    <circle cx="85" cy="12" r="6" fill="#b89570"/>
+    <!-- Eyes -->
+    <circle cx="48" cy="25" r="4" fill="#5a4a3a"/>
+    <circle cx="72" cy="25" r="4" fill="#5a4a3a"/>
+    <!-- Snout -->
+    <circle cx="60" cy="42" r="12" fill="#d9b59a"/>
+    <!-- Nose -->
+    <circle cx="60" cy="40" r="3" fill="#5a4a3a"/>
+  </g>
+  
+  <!-- Headboard -->
+  <rect x="130" y="250" width="252" height="35" rx="8" fill="#a58a70"/>
+  <rect x="135" y="255" width="242" height="20" rx="6" fill="#b89570" opacity="0.4"/>
+</svg>

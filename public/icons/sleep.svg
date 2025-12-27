@@ -1,0 +1,36 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft background -->
+  <rect width="512" height="512" rx="80" fill="#f5f1ed"/>
+  
+  <!-- Soft shadow -->
+  <ellipse cx="256" cy="480" rx="140" ry="20" fill="#e8e0d8" opacity="0.3"/>
+  
+  <!-- Pillow -->
+  <ellipse cx="256" cy="340" rx="120" ry="80" fill="#e8d9cc"/>
+  <ellipse cx="256" cy="325" rx="120" ry="70" fill="#f0e4d9"/>
+  
+  <!-- Pillow highlight (soft shadow for depth) -->
+  <ellipse cx="256" cy="310" rx="100" ry="25" fill="#f5f1ed" opacity="0.4"/>
+  
+  <!-- Bed sheet -->
+  <path d="M 140 350 L 130 420 Q 130 450 160 450 L 352 450 Q 382 450 382 420 L 372 350 Z" fill="#c9a583" opacity="0.8"/>
+  
+  <!-- Sheet fold texture -->
+  <path d="M 200 360 Q 220 380 256 375 Q 292 380 312 360" fill="none" stroke="#b89570" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+  
+  <!-- Head/Person outline (simplified) -->
+  <circle cx="256" cy="250" r="50" fill="#d9b59a"/>
+  
+  <!-- Hair -->
+  <path d="M 206 250 Q 206 180 256 180 Q 306 180 306 250" fill="#a58a70"/>
+  
+  <!-- Gentle curves on pillow for softness -->
+  <path d="M 200 330 Q 200 310 256 305 Q 312 310 312 330" fill="none" stroke="#e8d9cc" stroke-width="4" opacity="0.5"/>
+  
+  <!-- Star in corner (peaceful sleep) -->
+  <g fill="#f0b3d6" opacity="0.5">
+    <circle cx="380" cy="160" r="8"/>
+    <circle cx="360" cy="200" r="6"/>
+    <circle cx="400" cy="220" r="7"/>
+  </g>
+</svg>
