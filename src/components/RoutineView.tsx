@@ -252,6 +252,22 @@ export default function RoutineView({
         </div>
       </div>
 
+      <div className="routine-controls">
+        <button
+          className="btn btn-pause"
+          onClick={() => setPaused(!paused)}
+        >
+          {paused ? "Fortsätt" : "Pausa"}
+        </button>
+        <button 
+          className="btn btn-reset" 
+          onClick={handleReset}
+          style={{ pointerEvents: 'auto' }}
+        >
+          Återställ
+        </button>
+      </div>
+
       <div className="routine-main">
         <div className="time-ring-wrapper">
           <TimeRing totalSeconds={totalSeconds} size={240} />
@@ -287,18 +303,6 @@ export default function RoutineView({
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="routine-controls">
-          <button
-            className="btn btn-pause"
-            onClick={() => setPaused(!paused)}
-          >
-            {paused ? "Fortsätt" : "Pausa"}
-          </button>
-          <button className="btn btn-reset" onClick={handleReset}>
-            Återställ
-          </button>
         </div>
       </div>
     </div>
