@@ -190,7 +190,16 @@ export default function RoutineView({
   return (
     <div className="routine-view">
       {/* Only show confetti if we actually have done steps */}
-      {showConfetti && doneSteps.length > 0 && <Confetti show={true} />}
+      {showConfetti && doneSteps.length > 0 && (
+        <Confetti 
+          show={true} 
+          childName={child.name}
+          onComplete={() => {
+            console.log("🎉 Confetti complete, returning to start");
+            if (onBack) onBack();
+          }}
+        />
+      )}
 
       {showAdultDialog && (
         <div className="adult-dialog-overlay">
