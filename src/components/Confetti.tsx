@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import "./Confetti.css";
 
 interface ConfettiProps {
+  show: boolean;
   childName: string;
   onComplete: () => void;
 }
 
-export default function Confetti({ childName, onComplete }: ConfettiProps) {
+export default function Confetti({ show, childName, onComplete }: ConfettiProps) {
+  if (!show) return null;
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
 
   useEffect(() => {
