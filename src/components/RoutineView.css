@@ -81,7 +81,6 @@
   gap: 12px;
   min-height: 0;
   overflow: hidden;
-  margin-top: 60px;
 }
 
 .routine-zones {
@@ -210,14 +209,13 @@
 }
 
 .routine-controls {
-  position: absolute;
-  top: 150px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 16px;
   justify-content: center;
-  z-index: 100;
+  padding: 16px 0;
+  flex-shrink: 0;
+  border: 2px solid red;
+  background-color: yellow;
 }
 
 .btn {

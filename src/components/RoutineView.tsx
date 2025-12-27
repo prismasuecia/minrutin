@@ -158,7 +158,8 @@ export default function RoutineView({
     setShowAdultDialog(false);
   };
 
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
+    console.log("🔄 Återställ-knapp klickad!");
     const reset = {
       ...routine,
       steps: routine.steps.map((s) => ({
@@ -167,9 +168,11 @@ export default function RoutineView({
         remainingSeconds: s.minutes * 60,
       })),
     };
+    console.log("🔄 Återställer steg till Todo:", reset.steps.map(s => ({ title: s.title, status: s.status })));
     onUpdateRoutine(reset);
     setShowConfetti(false);
-  }, [routine, onUpdateRoutine]);
+    setPaused(false);
+  };
 
   // Auto-redirect back after confetti finishes
   useEffect(() => {
@@ -287,18 +290,18 @@ export default function RoutineView({
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="routine-controls">
-        <button
-          className="btn btn-pause"
-          onClick={() => setPaused(!paused)}
-        >
-          {paused ? "Fortsätt" : "Pausa"}
-        </button>
-        <button className="btn btn-reset" onClick={handleReset}>
-          Återställ
-        </button>
+        <div className="routine-controls">
+          <button
+            className="btn btn-pause"
+            onClick={() => setPaused(!paused)}
+          >
+            {paused ? "Fortsätt" : "Pausa"}
+          </button>
+          <button className="btn btn-reset" onClick={handleReset}>
+            Återställ
+          </button>
+        </div>
       </div>
     </div>
   );
