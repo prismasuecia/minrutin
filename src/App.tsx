@@ -284,12 +284,19 @@ export default function App() {
           onSelectChild={handleSelectChild}
         />
       )}
-      <div className="app-logo">
-        <img src="/imag de, Firefly Upscaler, 2x skala.png" alt="Logga" />
-        <p className="app-credits">
-          Min rutin är ett digitalt hjälpmedel utvecklat av Prisma Utbildning för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
-        </p>
-      </div>
+      {state.screen !== "settings" && (
+        <a 
+          href="https://www.prismasuecia.se" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="app-logo"
+        >
+          <img src="/imag de, Firefly Upscaler, 2x skala.png" alt="Logga" />
+          <p className="app-credits">
+            Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
+          </p>
+        </a>
+      )}
     </div>
   );
 }

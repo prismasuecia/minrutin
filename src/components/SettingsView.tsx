@@ -328,22 +328,7 @@ function RoutineEditor({ routine, onSave }: RoutineEditorProps) {
           console.log("✅ Save button clicked for routine:", edited.title);
           console.log("   Total steps:", edited.steps.length);
           console.log("   Steps:", edited.steps.map(s => ({ id: s.id, title: s.title })));
-          
-          // Only filter out placeholder steps that still have the default "Ny aktivitet" title
-          const filteredRoutine = {
-            ...edited,
-            steps: edited.steps.filter(step => {
-              // If this is a new step that still has the placeholder name, filter it out
-              if (newStepIdsRef.current.has(step.id) && step.title.trim() === "Ny aktivitet") {
-                console.log("   Filtering out placeholder step:", step.id);
-                return false;
-              }
-              // Keep all other steps
-              return true;
-            })
-          };
-          console.log("   After filtering:", filteredRoutine.steps.length, "steps");
-          onSave(filteredRoutine);
+          onSave(edited);
         }}>
           Spara ändringar
         </button>

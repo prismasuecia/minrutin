@@ -247,3 +247,29 @@
 .btn-reset:hover {
   background-color: #cfe0f5;
 }
+
+.routine-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-top: auto;
+  justify-content: center;
+}
+
+.routine-logo img {
+  max-width: 60px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.routine-logo-credits {
+  margin: 0;
+  font-size: 9px;
+  color: #666;
+  text-align: center;
+  max-width: 300px;
+  line-height: 1.3;
+  opacity: 0.6;
+}
