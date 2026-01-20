@@ -2,16 +2,18 @@ import "./TimeRing.css";
 
 interface TimeRingProps {
   totalSeconds: number;
+  remainingSeconds?: number;
   size?: number;
 }
 
-export default function TimeRing({ totalSeconds, size = 280 }: TimeRingProps) {
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  // Assume max 60 minutes (3600 seconds)
-  const percent = Math.min(100, (totalSeconds / 3600) * 100);
+export default function TimeRing({ totalSeconds, remainingSeconds, size = 280 }: TimeRingProps) {
+  const total = Math.max(1, Math.floor(totalSeconds));
+  const remaining = Math.max(0, Math.floor(remainingSeconds ?? totalSeconds));
+  const ratio = Math.min(1, Math.max(0, remaining / total));
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
   const circumference = 2 * Math.PI * (size / 2 - 16);
-  const offset = circumference - (percent / 100) * circumference;
+  const offset = circumference * (1 - ratio);
 
   return (
     <div className="time-ring-container" style={{ width: size, height: size }}>

@@ -34,17 +34,26 @@ export default function RoutineView({
   const [totalSeconds, setTotalSeconds] = useState(
     routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0)
   );
+  const [remainingTotalSeconds, setRemainingTotalSeconds] = useState(
+    routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0)
+  );
   const timerRef = useRef<number | null>(null);
   const pressStartTime = useRef<number>(0);
+  const lastTickRef = useRef<number | null>(null);
+  const totalLastTickRef = useRef<number | null>(null);
+  const totalTimerActiveRef = useRef(false);
 
   // Sync prop routine to local routine ONLY when routine.id changes (i.e., switching to a different routine)
   // Do NOT sync on every prop change, or it will revert local state changes
   useEffect(() => {
     console.log("📋 RoutineView loaded routine:", routine.title);
     setLocalRoutine(routine);
-    setTotalSeconds(routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0));
+    const newTotal = routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
+    setTotalSeconds(newTotal);
+    setRemainingTotalSeconds(newTotal);
     setShowConfetti(false);
     setPaused(false);
+    totalTimerActiveRef.current = false;
   }, [routine.id]);
 
   const colorMap: { [key: string]: string } = {
@@ -53,54 +62,156 @@ export default function RoutineView({
   };
   const bgColor = colorMap[child.colorProfile] || "#CDE8D8";
 
-  // Timer loop - only runs if at least one step is Running
-  useEffect(() => {
-    // Check if any step is running
-    const hasRunningStep = localRoutine.steps.some(s => s.status === StepStatus.Running);
-    
-    if (paused || !hasRunningStep) return;
+  const hasRunningStep = localRoutine.steps.some(
+    (s) => s.status === StepStatus.Running && s.timerEnabled !== false
+  );
 
-    const interval = setInterval(() => {
-      // Always use the most current localRoutine state via setter function
+  // Total timer: counts down overall time once the first step starts
+  useEffect(() => {
+    if (paused) {
+      totalLastTickRef.current = null;
+      return;
+    }
+
+    if (!totalTimerActiveRef.current && hasRunningStep) {
+      totalTimerActiveRef.current = true;
+      totalLastTickRef.current = Date.now();
+    }
+
+    if (!totalTimerActiveRef.current) {
+      return;
+    }
+
+    const applyTotalElapsed = (seconds: number) => {
+      if (seconds <= 0) return;
+      setRemainingTotalSeconds((prev) => Math.max(0, prev - seconds));
+    };
+
+    const tick = () => {
+      const now = Date.now();
+      const last = totalLastTickRef.current ?? now;
+      totalLastTickRef.current = now;
+      applyTotalElapsed((now - last) / 1000);
+    };
+
+    totalLastTickRef.current = totalLastTickRef.current ?? Date.now();
+    const interval = window.setInterval(tick, 1000);
+
+    const resume = () => {
+      if (!totalTimerActiveRef.current) return;
+      const now = Date.now();
+      const last = totalLastTickRef.current;
+      if (last) {
+        applyTotalElapsed((now - last) / 1000);
+      }
+      totalLastTickRef.current = now;
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        resume();
+      }
+    };
+
+    window.addEventListener("focus", resume);
+    window.addEventListener("pageshow", resume);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", resume);
+      window.removeEventListener("pageshow", resume);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [hasRunningStep, paused]);
+
+  // Timer loop - compensates for throttled timers when the screen sleeps
+  useEffect(() => {
+    if (paused || !hasRunningStep) {
+      lastTickRef.current = null;
+      return;
+    }
+
+    const applyElapsed = (elapsedSeconds: number) => {
+      if (elapsedSeconds <= 0) return;
+
       setLocalRoutine((currentRoutine) => {
-        let updated = { ...currentRoutine };
         let allDone = true;
         let changed = false;
 
-        updated.steps = updated.steps.map((step) => {
-          if (step.status === StepStatus.Running && step.timerEnabled) {
-            const newRemaining = Math.max(0, step.remainingSeconds - 1);
-            if (newRemaining === 0) {
+        const updatedSteps = currentRoutine.steps.map((step) => {
+          if (step.status === StepStatus.Running && step.timerEnabled !== false) {
+            const newRemaining = Math.max(0, step.remainingSeconds - elapsedSeconds);
+            const nextStatus = newRemaining === 0 ? StepStatus.Done : step.status;
+
+            if (newRemaining !== step.remainingSeconds || nextStatus !== step.status) {
               changed = true;
-              return { ...step, remainingSeconds: 0, status: StepStatus.Done };
             }
-            allDone = false;
-            changed = true;
-            return { ...step, remainingSeconds: newRemaining };
+
+            if (nextStatus !== StepStatus.Done) {
+              allDone = false;
+            }
+
+            if (nextStatus !== step.status || newRemaining !== step.remainingSeconds) {
+              return { ...step, remainingSeconds: newRemaining, status: nextStatus };
+            }
+            return step;
           }
+
           if (step.status !== StepStatus.Done) {
             allDone = false;
           }
+
           return step;
         });
 
-        if (changed) {
-          setTotalSeconds(updated.steps.reduce((sum, s) => sum + s.remainingSeconds, 0));
-        }
-
-        // Only show confetti if ALL steps are done
         if (allDone && !paused) {
           console.log("🎉 All done! Showing confetti");
           setShowConfetti(true);
           setPaused(true);
+          totalTimerActiveRef.current = false;
         }
 
-        return updated;
+        return changed ? { ...currentRoutine, steps: updatedSteps } : currentRoutine;
       });
-    }, 1000);
+    };
 
-    return () => clearInterval(interval);
-  }, [localRoutine, paused]);
+    const tick = () => {
+      const now = Date.now();
+      const last = lastTickRef.current ?? now;
+      lastTickRef.current = now;
+      applyElapsed((now - last) / 1000);
+    };
+
+    lastTickRef.current = Date.now();
+    const interval = window.setInterval(tick, 1000);
+
+    const handleResume = () => {
+      const now = Date.now();
+      const last = lastTickRef.current;
+      if (last) {
+        applyElapsed((now - last) / 1000);
+      }
+      lastTickRef.current = now;
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        handleResume();
+      }
+    };
+
+    window.addEventListener("focus", handleResume);
+    window.addEventListener("pageshow", handleResume);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", handleResume);
+      window.removeEventListener("pageshow", handleResume);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [hasRunningStep, paused]);
 
   const handleStartStep = useCallback(
     (stepId: string) => {
@@ -166,10 +277,13 @@ export default function RoutineView({
       })),
     };
     setLocalRoutine(reset);
-    setTotalSeconds(reset.steps.reduce((sum, s) => sum + s.remainingSeconds, 0));
+    const resetTotal = reset.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
+    setTotalSeconds(resetTotal);
+    setRemainingTotalSeconds(resetTotal);
     onUpdateRoutine(reset);
     setShowConfetti(false);
     setPaused(false);
+    totalTimerActiveRef.current = false;
   };
 
   // Auto-redirect back after confetti finishes
@@ -271,7 +385,7 @@ export default function RoutineView({
 
       <div className="routine-main">
         <div className="time-ring-wrapper">
-          <TimeRing totalSeconds={totalSeconds} size={240} />
+          <TimeRing totalSeconds={totalSeconds} remainingSeconds={remainingTotalSeconds} size={240} />
         </div>
 
         <div className="routine-zones">
