@@ -18,8 +18,16 @@ export default function RoutineCard({
 }: RoutineCardProps) {
   const isDone = step.status === StepStatus.Done;
   const isRunning = step.status === StepStatus.Running;
-  const minutes = Math.floor(step.remainingSeconds / 60);
-  const seconds = step.remainingSeconds % 60;
+  const roundedSeconds = Math.max(0, Math.round(step.remainingSeconds));
+  const minutes = Math.floor(roundedSeconds / 60);
+  const seconds = roundedSeconds % 60;
+
+  let timerContent: string | null = null;
+  if (step.timerEnabled) {
+    timerContent = isDone
+      ? "Klar ✅"
+      : `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  }
 
   return (
     <div
@@ -42,11 +50,7 @@ export default function RoutineCard({
 
       <div className="card-content">
         <h2 className="card-title">{step.title}</h2>
-        {step.timerEnabled && (
-          <div className="card-timer">
-            {minutes}:{seconds.toString().padStart(2, "0")}
-          </div>
-        )}
+        {timerContent && <div className="card-timer">{timerContent}</div>}
       </div>
 
       {isRunning && (

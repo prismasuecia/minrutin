@@ -12,6 +12,16 @@ import TimeRing from "./TimeRing";
 import Confetti from "./Confetti";
 import "./RoutineView.css";
 
+const sanitizeSeconds = (value: number) => Math.max(0, Math.round(value));
+
+const normalizeRoutine = (routine: UserRoutine): UserRoutine => ({
+  ...routine,
+  steps: routine.steps.map((step) => ({
+    ...step,
+    remainingSeconds: sanitizeSeconds(step.remainingSeconds),
+  })),
+});
+
 interface RoutineViewProps {
   child: ChildProfile;
   routine: UserRoutine;
@@ -27,15 +37,15 @@ export default function RoutineView({
   onBack,
   onEnterSettings,
 }: RoutineViewProps) {
-  const [localRoutine, setLocalRoutine] = useState(routine);
+  const [localRoutine, setLocalRoutine] = useState(() => normalizeRoutine(routine));
   const [paused, setPaused] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showAdultDialog, setShowAdultDialog] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(
-    routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0)
+    routine.steps.reduce((sum, s) => sum + sanitizeSeconds(s.remainingSeconds), 0)
   );
   const [remainingTotalSeconds, setRemainingTotalSeconds] = useState(
-    routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0)
+    routine.steps.reduce((sum, s) => sum + sanitizeSeconds(s.remainingSeconds), 0)
   );
   const timerRef = useRef<number | null>(null);
   const pressStartTime = useRef<number>(0);
@@ -47,8 +57,9 @@ export default function RoutineView({
   // Do NOT sync on every prop change, or it will revert local state changes
   useEffect(() => {
     console.log("📋 RoutineView loaded routine:", routine.title);
-    setLocalRoutine(routine);
-    const newTotal = routine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
+    const normalized = normalizeRoutine(routine);
+    setLocalRoutine(normalized);
+    const newTotal = normalized.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
     setTotalSeconds(newTotal);
     setRemainingTotalSeconds(newTotal);
     setShowConfetti(false);
@@ -84,7 +95,7 @@ export default function RoutineView({
 
     const applyTotalElapsed = (seconds: number) => {
       if (seconds <= 0) return;
-      setRemainingTotalSeconds((prev) => Math.max(0, prev - seconds));
+      setRemainingTotalSeconds((prev) => sanitizeSeconds(prev - seconds));
     };
 
     const tick = () => {
@@ -141,7 +152,7 @@ export default function RoutineView({
 
         const updatedSteps = currentRoutine.steps.map((step) => {
           if (step.status === StepStatus.Running && step.timerEnabled !== false) {
-            const newRemaining = Math.max(0, step.remainingSeconds - elapsedSeconds);
+            const newRemaining = sanitizeSeconds(step.remainingSeconds - elapsedSeconds);
             const nextStatus = newRemaining === 0 ? StepStatus.Done : step.status;
 
             if (newRemaining !== step.remainingSeconds || nextStatus !== step.status) {
@@ -216,8 +227,9 @@ export default function RoutineView({
   const handleStartStep = useCallback(
     (stepId: string) => {
       const updated = setStepStatus(localRoutine, stepId, StepStatus.Running);
-      setLocalRoutine(updated);
-      onUpdateRoutine(updated);
+      const normalized = normalizeRoutine(updated);
+      setLocalRoutine(normalized);
+      onUpdateRoutine(normalized);
     },
     [localRoutine, onUpdateRoutine]
   );
@@ -225,8 +237,9 @@ export default function RoutineView({
   const handleCompleteStep = useCallback(
     (stepId: string) => {
       const updated = setStepStatus(localRoutine, stepId, StepStatus.Done);
-      setLocalRoutine(updated);
-      onUpdateRoutine(updated);
+      const normalized = normalizeRoutine(updated);
+      setLocalRoutine(normalized);
+      onUpdateRoutine(normalized);
     },
     [localRoutine, onUpdateRoutine]
   );
@@ -276,11 +289,12 @@ export default function RoutineView({
         remainingSeconds: s.minutes * 60,
       })),
     };
-    setLocalRoutine(reset);
-    const resetTotal = reset.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
+    const normalized = normalizeRoutine(reset);
+    setLocalRoutine(normalized);
+    const resetTotal = normalized.steps.reduce((sum, s) => sum + s.remainingSeconds, 0);
     setTotalSeconds(resetTotal);
     setRemainingTotalSeconds(resetTotal);
-    onUpdateRoutine(reset);
+    onUpdateRoutine(normalized);
     setShowConfetti(false);
     setPaused(false);
     totalTimerActiveRef.current = false;
