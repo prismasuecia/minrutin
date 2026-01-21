@@ -176,15 +176,20 @@ export default function App() {
     setState({ ...state, activeChildId: id, screen: "start" });
   };
 
-  const handleMouseDown = () => {
-    const timer = setTimeout(() => {
-      setPreviousScreen(state.screen as "start" | "routine");
-      setState({ ...state, screen: "settings" });
+  const startSettingsLongPress = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+    }
+    const currentScreen = state.screen === "routine" ? "routine" : "start";
+    const timer = window.setTimeout(() => {
+      setLongPressTimer(null);
+      setPreviousScreen(currentScreen);
+      setState((prev) => ({ ...prev, screen: "settings" }));
     }, 800);
     setLongPressTimer(timer);
   };
 
-  const handleMouseUp = () => {
+  const cancelSettingsLongPress = () => {
     if (longPressTimer) {
       clearTimeout(longPressTimer);
       setLongPressTimer(null);
@@ -205,17 +210,35 @@ export default function App() {
   }
 
   return (
-    <div
-      className="app"
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-    >
+    <div className="app">
       {state.screen === "start" && (
         <div className="start-screen">
           <div className="start-icon">🌞</div>
           <h1 className="app-title">Min rutin</h1>
-          <p className="greeting">God morgon, {activeChild.name}!</p>
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label={`Tryck några sekunder på ${activeChild.name} för att ändra inställningar`}
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              startSettingsLongPress();
+            }}
+            onPointerUp={(e) => {
+              e.preventDefault();
+              cancelSettingsLongPress();
+            }}
+            onPointerLeave={cancelSettingsLongPress}
+            onPointerCancel={cancelSettingsLongPress}
+            style={{
+              userSelect: "none",
+              WebkitUserSelect: "none" as const,
+              touchAction: "none",
+              cursor: "pointer",
+            }}
+          >
+            <p className="greeting">God morgon, {activeChild.name}!</p>
+          </div>
 
           <div className="mode-buttons">
             {activeChild.routines.map((routine) => (
