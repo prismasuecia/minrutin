@@ -371,12 +371,12 @@ export default function RoutineView({
         >
           <h1
             style={{ margin: 0, pointerEvents: 'none' }}
-            title="Tryck och håll på namnet för att ändra inställningar"
+            title="Tryck några sekunder på barnets namn för att ändra inställningar"
           >
             God morgon, {child.name}!
           </h1>
         </div>
-          <p className="long-press-hint">Tryck och håll på namnet för att ändra inställningar</p>
+          <p className="long-press-hint">Tryck några sekunder på barnets namn för att ändra inställningar</p>
         </div>
       </div>
 
