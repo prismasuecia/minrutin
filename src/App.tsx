@@ -295,7 +295,7 @@ export default function App() {
           rel="noopener noreferrer" 
           className="app-logo"
         >
-          <img src="/imag de, Firefly Upscaler, 2x skala.png" alt="Logga" />
+          <img src="logo.png" alt="Logga" />
           <p className="app-credits">
             Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
           </p>

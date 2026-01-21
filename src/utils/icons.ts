@@ -25,24 +25,24 @@ export interface IconDefinition {
  */
 export const AVAILABLE_ICONS: IconDefinition[] = [
   // Morning routines
-  { name: "wake-up", label: "Gå upp", emoji: "🛏️", category: "Morgon", svgPath: "/icons/wake-up.svg" },
-  { name: "brush-teeth", label: "Borsta tänder", emoji: "✨", category: "Morgon", svgPath: "/icons/brush-teeth.svg" },
-  { name: "take-shower", label: "Duscha", emoji: "🚿", category: "Morgon", svgPath: "/icons/take-shower.svg" },
-  { name: "get-dressed", label: "Klä på dig", emoji: "👕", category: "Morgon", svgPath: "/icons/get-dressed.svg" },
+  { name: "wake-up", label: "Gå upp", emoji: "🛏️", category: "Morgon", svgPath: "icons/wake-up.svg" },
+  { name: "brush-teeth", label: "Borsta tänder", emoji: "✨", category: "Morgon", svgPath: "icons/brush-teeth.svg" },
+  { name: "take-shower", label: "Duscha", emoji: "🚿", category: "Morgon", svgPath: "icons/take-shower.svg" },
+  { name: "get-dressed", label: "Klä på dig", emoji: "👕", category: "Morgon", svgPath: "icons/get-dressed.svg" },
   
   // Meals
-  { name: "eat-breakfast", label: "Äta frukost", emoji: "🍴", category: "Mat", svgPath: "/icons/eat-breakfast.svg" },
+  { name: "eat-breakfast", label: "Äta frukost", emoji: "🍴", category: "Mat", svgPath: "icons/eat-breakfast.svg" },
   
   // Activities
-  { name: "read-book", label: "Läsa bok", emoji: "📖", category: "Aktiviteter", svgPath: "/icons/read-book.svg" },
+  { name: "read-book", label: "Läsa bok", emoji: "📖", category: "Aktiviteter", svgPath: "icons/read-book.svg" },
   
   // Evening routines
-  { name: "lamp-table", label: "Läsa på kvällen", emoji: "💡", category: "Kväll", svgPath: "/icons/lamp-table.svg" },
-  { name: "moon-stars", label: "Sova", emoji: "🌙", category: "Kväll", svgPath: "/icons/moon-stars.svg" },
-  { name: "bedtime", label: "Sovdags", emoji: "🌙", category: "Kväll", svgPath: "/icons/bedtime.svg" },
+  { name: "lamp-table", label: "Läsa på kvällen", emoji: "💡", category: "Kväll", svgPath: "icons/lamp-table.svg" },
+  { name: "moon-stars", label: "Sova", emoji: "🌙", category: "Kväll", svgPath: "icons/moon-stars.svg" },
+  { name: "bedtime", label: "Sovdags", emoji: "🌙", category: "Kväll", svgPath: "icons/bedtime.svg" },
   
   // Default/General
-  { name: "star", label: "Aktivitet", emoji: "⭐", category: "Allmänt", svgPath: "/icons/star.svg" },
+  { name: "star", label: "Aktivitet", emoji: "⭐", category: "Allmänt", svgPath: "icons/star.svg" },
 ];
 
 /**

@@ -20,7 +20,7 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: '/imag de, Firefly Upscaler, 2x skala.png',
+            src: 'logo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
