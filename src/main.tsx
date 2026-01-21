@@ -7,10 +7,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <App />
 </React.StrictMode>
 );
-
-// PWA support: reload when service worker updates
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    window.location.reload();
-  });
-}

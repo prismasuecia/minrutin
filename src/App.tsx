@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRegisterSW } from "virtual:pwa-register/react";
 import type {
   StoredState,
   ChildProfile,
@@ -55,6 +56,14 @@ export default function App() {
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
+  const { needRefresh } = useRegisterSW();
+  const [showUpdateBanner, setShowUpdateBanner] = useState(false);
+
+  useEffect(() => {
+    if (needRefresh) {
+      setShowUpdateBanner(true);
+    }
+  }, [needRefresh]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -319,6 +328,14 @@ export default function App() {
           className="app-logo"
         >
           <img src="logo.png" alt="Logga" />
+        {showUpdateBanner && (
+          <div className="update-banner" role="status" aria-live="polite">
+            <span>Ny version finns. Stäng appen och öppna igen för att få den.</span>
+            <button type="button" onClick={() => setShowUpdateBanner(false)}>
+              Okej
+            </button>
+          </div>
+        )}
           <p className="app-credits">
             Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
           </p>
