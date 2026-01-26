@@ -106,16 +106,16 @@
 @media (min-width: 768px) and (max-width: 1180px) {
   .start-screen {
     justify-content: flex-start;
-    align-items: center;
-    padding-top: 48px;
-    padding-top: calc(48px + env(safe-area-inset-top));
-    padding-bottom: 48px;
+    align-items: stretch;
+    padding-top: calc(72px + env(safe-area-inset-top));
+    padding-bottom: 56px;
   }
 
   .start-content {
     justify-content: flex-start;
-    gap: 44px;
-    max-height: calc(100dvh - 96px);
+    gap: 40px;
+    max-height: calc(100dvh - 128px);
+    margin: 0 auto;
   }
 
   .start-subtitle {
@@ -123,7 +123,7 @@
   }
 
   .start-cards {
-    gap: 36px;
+    gap: 34px;
   }
 }
 
