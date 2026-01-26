@@ -17,6 +17,18 @@ import "./App.css";
 
 const STORAGE_KEY = "min-rutin-state-v2";
 
+const resetRoutineForRun = (routine: UserRoutine) => ({
+  ...routine,
+  steps: routine.steps.map((step) => ({
+    ...step,
+    status: StepStatus.Todo,
+    remainingSeconds: step.minutes * 60,
+  })),
+});
+
+const getRoutineTotalSeconds = (routine: UserRoutine) =>
+  routine.steps.reduce((sum, step) => sum + step.remainingSeconds, 0);
+
 // Preload all SVGs on app start
 preloadAllSVGs();
 
@@ -104,23 +116,16 @@ export default function App() {
   const activeChild = state.children.find((c) => c.id === state.activeChildId);
 
   const openRoutine = (routine: UserRoutine) => {
-    // Reset all steps to Todo status when opening routine
-    const resetRoutine = {
-      ...routine,
-      steps: routine.steps.map(step => ({
-        ...step,
-        status: StepStatus.Todo,
-        remainingSeconds: step.minutes * 60,
-      })),
-    };
+    const resetRoutine = resetRoutineForRun(routine);
+    const totalSeconds = getRoutineTotalSeconds(resetRoutine);
     setPreviousScreen("start");
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       screen: "routine",
       routine: resetRoutine,
-      totalSeconds: resetRoutine.steps.reduce((sum, s) => sum + s.remainingSeconds, 0),
+      totalSeconds,
       paused: false,
-    });
+    }));
   };
 
   const handleUpdateRoutine = (updated: UserRoutine) => {
@@ -312,17 +317,30 @@ export default function App() {
             console.log("❌ Settings closing");
             console.log("   previousScreen:", previousScreen);
             console.log("   state.screen:", state.screen);
-            
-            // If returning to routine view, update the routine with latest version from activeChild
-            let newState = { ...state, screen: previousScreen };
-            if (previousScreen === "routine" && state.routine && activeChild) {
-              const updatedRoutine = activeChild.routines.find(r => r.id === state.routine?.id);
-              if (updatedRoutine) {
-                console.log("🔄 Updating routine with latest version from activeChild");
-                newState = { ...newState, routine: updatedRoutine };
+
+            setState((prev) => {
+              if (previousScreen === "routine" && prev.routine) {
+                const currentChild = prev.children.find((c) => c.id === prev.activeChildId);
+                const latestRoutine = currentChild?.routines.find(
+                  (r) => r.id === prev.routine?.id
+                );
+
+                if (latestRoutine) {
+                  const resetRoutine = resetRoutineForRun(latestRoutine);
+                  const totalSeconds = getRoutineTotalSeconds(resetRoutine);
+                  console.log("🔄 Refreshing routine after settings close");
+                  return {
+                    ...prev,
+                    screen: "routine",
+                    routine: resetRoutine,
+                    totalSeconds,
+                    paused: false,
+                  };
+                }
               }
-            }
-            setState(newState);
+
+              return { ...prev, screen: previousScreen };
+            });
           }}
           onUpdateChild={handleUpdateChild}
           onAddChild={handleAddChild}
