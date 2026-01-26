@@ -20,7 +20,7 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'logo.png',
+            src: 'minrutin_logo.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
