@@ -107,23 +107,28 @@
   .start-screen {
     justify-content: flex-start;
     align-items: stretch;
-    padding-top: calc(72px + env(safe-area-inset-top));
-    padding-bottom: 56px;
+    padding-top: calc(54px + env(safe-area-inset-top));
+    padding-bottom: 44px;
   }
 
   .start-content {
     justify-content: flex-start;
-    gap: 32px;
-    max-height: calc(100dvh - 128px);
+    gap: 26px;
+    max-height: calc(100dvh - 98px);
     margin: 0 auto;
   }
 
   .start-subtitle {
-    margin: 10px 0 12px;
+    margin: 6px 0 8px;
   }
 
   .start-cards {
-    gap: 30px;
+    gap: 24px;
+  }
+
+  .start-cards .routine-card-option {
+    min-height: 136px;
+    padding: 18px;
   }
 }
 
