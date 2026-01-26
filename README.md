@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# Min rutin (webb)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interaktiv React/PWA-version av "Min rutin" som hjälper barn att följa vardagliga steg-för-steg-aktiviteter med visuella kort, timers och färgprofiler.
 
-Currently, two official plugins are available:
+## Teknik
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19 + TypeScript
+- Vite 7
+- PWA-stöd via `vite-plugin-pwa`
+- GitHub Pages för produktion
 
-## React Compiler
+## Kom igång
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Installera beroenden: `npm install`
+2. Utvecklingsläge med HMR: `npm run dev`
+3. Produktionsbuild: `npm run build`
+4. Förhandsgranska builden lokalt: `npm run preview`
 
-## Expanding the ESLint configuration
+> Tips: För att testa på enheter i samma nätverk kan du köra `npm run dev -- --host 0.0.0.0` eller `npm run preview -- --host 0.0.0.0` och surfa in på datorns IP-adress.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Testa PWA-uppdateringar
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Service workern (och uppdateringsbannern i appen) fungerar bara på `http://localhost` eller över HTTPS. För att testa på t.ex. iPad utan att deploya kan du starta förhandsvisningen med ett lokalt certifikat, t.ex.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+mkcert localhost 192.168.1.153
+npm run preview -- --host 0.0.0.0 --https --cert localhost+2.pem --key localhost+2-key.pem
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Acceptera certifikatet på enheten en gång, och ladda sedan sidan via `https://<datorns-ip>:4173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Deploy till GitHub Pages
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Öppna **Settings → Pages** och säkerställ att "Build and deployment" står på "GitHub Actions".
+2. Pusha till `main` (eller kör workflowet manuellt via **Actions → Deploy to GitHub Pages → Run workflow**). Workflow-filen finns i `.github/workflows/deploy.yml` och:
+   - Checkar ut koden.
+   - Kör `npm ci && npm run build` på Ubuntu.
+   - Packar `dist/` och publicerar till GitHub Pages via `actions/deploy-pages`.
+3. När jobbet är klart pekar `https://<org>.github.io/<repo>/` mot den senaste builden. URL:en syns även i Actions-loggen.
+
+Vill du deploya från en annan branch eller med egen domän ändrar du helt enkelt triggren (under `on:`) eller lägger på en CNAME i `public/`.

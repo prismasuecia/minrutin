@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import type {
   StoredState,
@@ -56,14 +56,30 @@ export default function App() {
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
-  const { needRefresh } = useRegisterSW();
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+    } = useRegisterSW({
+      immediate: false,
+    });
   const [showUpdateBanner, setShowUpdateBanner] = useState(false);
 
   useEffect(() => {
-    if (needRefresh) {
-      setShowUpdateBanner(true);
-    }
+    setShowUpdateBanner(Boolean(needRefresh));
   }, [needRefresh]);
+
+  const handleConfirmUpdate = useCallback(async () => {
+    setShowUpdateBanner(false);
+    try {
+      if (updateServiceWorker) {
+        await updateServiceWorker(true);
+      } else {
+        window.location.reload();
+      }
+    } finally {
+      setNeedRefresh(false);
+    }
+  }, [setNeedRefresh, updateServiceWorker]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -321,25 +337,27 @@ export default function App() {
         />
       )}
       {state.screen !== "settings" && (
-        <a 
-          href="https://www.prismasuecia.se" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="app-logo"
-        >
-          <img src="logo.png" alt="Logga" />
-        {showUpdateBanner && (
-          <div className="update-banner" role="status" aria-live="polite">
-            <span>Ny version finns. Stäng appen och öppna igen för att få den.</span>
-            <button type="button" onClick={() => setShowUpdateBanner(false)}>
-              Okej
-            </button>
-          </div>
-        )}
-          <p className="app-credits">
-            Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
-          </p>
-        </a>
+        <>
+          <a 
+            href="https://www.prismasuecia.se" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="app-logo"
+          >
+            <img src="logo.png" alt="Logga" />
+            <p className="app-credits">
+              Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
+            </p>
+          </a>
+          {showUpdateBanner && (
+            <div className="update-banner" role="status" aria-live="polite">
+              <span>Ny version redo! Tryck på Okej så får du alla förbättringar direkt.</span>
+              <button type="button" onClick={handleConfirmUpdate}>
+                Okej
+              </button>
+            </div>
+          )}
+        </>
       )}
       <InstallPrompt />
     </div>

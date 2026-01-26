@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import type {
   UserRoutine,
   ChildProfile,
@@ -22,6 +22,19 @@ const normalizeRoutine = (routine: UserRoutine): UserRoutine => ({
   })),
 });
 
+const getRoutineStructureSignature = (routine: UserRoutine): string => {
+  return JSON.stringify({
+    title: routine.title,
+    steps: routine.steps.map((step) => ({
+      id: step.id,
+      title: step.title,
+      minutes: step.minutes,
+      timerEnabled: step.timerEnabled !== false,
+      iconName: step.iconName ?? "",
+    })),
+  });
+};
+
 interface RoutineViewProps {
   child: ChildProfile;
   routine: UserRoutine;
@@ -38,6 +51,10 @@ export default function RoutineView({
   onEnterSettings,
 }: RoutineViewProps) {
   const [localRoutine, setLocalRoutine] = useState(() => normalizeRoutine(routine));
+  const routineStructureSignature = useMemo(
+    () => getRoutineStructureSignature(routine),
+    [routine]
+  );
   const [paused, setPaused] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showAdultDialog, setShowAdultDialog] = useState(false);
@@ -53,8 +70,8 @@ export default function RoutineView({
   const totalLastTickRef = useRef<number | null>(null);
   const totalTimerActiveRef = useRef(false);
 
-  // Sync prop routine to local routine ONLY when routine.id changes (i.e., switching to a different routine)
-  // Do NOT sync on every prop change, or it will revert local state changes
+  // Sync prop routine to local routine when switching routines entirely or when the structure changes
+  // Do NOT sync on every prop change, or it will revert local state progress when timers tick
   useEffect(() => {
     console.log("📋 RoutineView loaded routine:", routine.title);
     const normalized = normalizeRoutine(routine);
@@ -65,7 +82,7 @@ export default function RoutineView({
     setShowConfetti(false);
     setPaused(false);
     totalTimerActiveRef.current = false;
-  }, [routine.id]);
+  }, [routine.id, routineStructureSignature]);
 
   const colorMap: { [key: string]: string } = {
     calm: "#CDE8D8",

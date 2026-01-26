@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       injectRegister: null,
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['**/*.png', '**/*.svg'],
       manifest: {
         name: 'Min Rutin',
