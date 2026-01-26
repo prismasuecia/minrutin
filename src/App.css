@@ -113,17 +113,17 @@
 
   .start-content {
     justify-content: flex-start;
-    gap: 40px;
+    gap: 32px;
     max-height: calc(100dvh - 128px);
     margin: 0 auto;
   }
 
   .start-subtitle {
-    margin: 14px 0 18px;
+    margin: 10px 0 12px;
   }
 
   .start-cards {
-    gap: 34px;
+    gap: 30px;
   }
 }
 
