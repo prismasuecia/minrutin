@@ -234,65 +234,59 @@ export default function App() {
     );
   }
 
+  const morningRoutine = activeChild.routines.find((r) => r.title === "Morgonrutin") ?? activeChild.routines[0];
+  const eveningRoutine = activeChild.routines.find((r) => r.title === "Kvällsrutin") ?? activeChild.routines.find((r) => r.id !== morningRoutine?.id);
+
+  const handleCardSelect = (routine?: UserRoutine) => {
+    if (routine) {
+      openRoutine(routine);
+    }
+  };
+
   return (
     <div className="app">
       {state.screen === "start" && (
-        <div className="start-screen">
-          <div className="start-icon">🌞</div>
-          <h1 className="app-title">Min rutin</h1>
-          <div
-            role="button"
-            tabIndex={0}
-            aria-label={`Tryck några sekunder på ${activeChild.name} för att ändra inställningar`}
-            onPointerDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              startSettingsLongPress();
-            }}
-            onPointerUp={(e) => {
-              e.preventDefault();
-              cancelSettingsLongPress();
-            }}
-            onPointerLeave={cancelSettingsLongPress}
-            onPointerCancel={cancelSettingsLongPress}
-            style={{
-              userSelect: "none",
-              WebkitUserSelect: "none" as const,
-              touchAction: "none",
-              cursor: "pointer",
-            }}
-          >
-            <p className="greeting">God morgon, {activeChild.name}!</p>
-          </div>
-
-          <div className="mode-buttons">
-            {activeChild.routines.map((routine) => (
-              <button
-                key={routine.id}
-                className="btn-large"
-                onClick={() => openRoutine(routine)}
+        <div
+          className="start-screen"
+          onPointerDown={startSettingsLongPress}
+          onPointerUp={cancelSettingsLongPress}
+          onPointerLeave={cancelSettingsLongPress}
+          onPointerCancel={cancelSettingsLongPress}
+        >
+          <div className="start-content">
+            <h1 className="start-title">Min rutin</h1>
+            <p className="start-subtitle">God morgon</p>
+            <div className="start-cards">
+              <div
+                className="routine-card-option routine-card-morning"
+                role="button"
+                tabIndex={0}
+                onClick={() => handleCardSelect(morningRoutine)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleCardSelect(morningRoutine);
+                  }
+                }}
               >
-                {routine.title}
-              </button>
-            ))}
-          </div>
-
-          {state.children.length > 1 && (
-            <div className="child-selector">
-              <p>Välj barn:</p>
-              <div className="children-buttons">
-                {state.children.map((c) => (
-                  <button
-                    key={c.id}
-                    className={`btn-child ${c.id === state.activeChildId ? "active" : ""}`}
-                    onClick={() => handleSelectChild(c.id)}
-                  >
-                    {c.name}
-                  </button>
-                ))}
+                Morgonrutin
+              </div>
+              <div
+                className="routine-card-option routine-card-evening"
+                role="button"
+                tabIndex={0}
+                onClick={() => handleCardSelect(eveningRoutine)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleCardSelect(eveningRoutine);
+                  }
+                }}
+              >
+                Kvällsrutin
               </div>
             </div>
-          )}
+          </div>
         </div>
       )}
 
@@ -336,28 +330,13 @@ export default function App() {
           onSelectChild={handleSelectChild}
         />
       )}
-      {state.screen !== "settings" && (
-        <>
-          <a 
-            href="https://www.prismasuecia.se" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="app-logo"
-          >
-            <img src="logo.png" alt="Logga" />
-            <p className="app-credits">
-              Min rutin är ett digitalt hjälpmedel utvecklat av <strong>Prisma Utbildning</strong> för att stödja barn i vardagliga rutiner på ett tryggt och förutsägbart sätt.
-            </p>
-          </a>
-          {showUpdateBanner && (
-            <div className="update-banner" role="status" aria-live="polite">
-              <span>Ny version redo! Tryck på Okej så får du alla förbättringar direkt.</span>
-              <button type="button" onClick={handleConfirmUpdate}>
-                Okej
-              </button>
-            </div>
-          )}
-        </>
+      {state.screen !== "settings" && state.screen !== "start" && showUpdateBanner && (
+        <div className="update-banner" role="status" aria-live="polite">
+          <span>Ny version redo! Tryck på Okej så får du alla förbättringar direkt.</span>
+          <button type="button" onClick={handleConfirmUpdate}>
+            Okej
+          </button>
+        </div>
       )}
       <InstallPrompt />
     </div>

@@ -3,47 +3,15 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #FDFCF6;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)) ,
+    linear-gradient(180deg, #f8f4e9 0%, #f6f0e3 100%);
+  color: #35322d;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   position: relative;
   overflow: hidden;
-}
-
-.app-logo {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.app-logo:hover img {
-  opacity: 1;
-}
-
-.app-logo img {
-  max-width: 60px;
-  height: auto;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
-}
-
-.app-credits {
-  margin: 0;
-  margin-left: -3px;
-  font-size: 9px;
-  color: #666;
-  text-align: left;
-  max-width: 200px;
-  line-height: 1.3;
-  opacity: 0.6;
 }
 
 .app-loading {
@@ -52,7 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FDFCF6;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)) ,
+    linear-gradient(180deg, #f8f4e9 0%, #f6f0e3 100%);
   font-size: 24px;
   color: #666;
 }
@@ -60,99 +30,75 @@
 .start-screen {
   flex: 1;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)) ,
+    linear-gradient(180deg, #f8f4e9 0%, #f6f0e3 100%);
+}
+
+
+.start-content {
+  width: min(90vw, 680px);
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px 32px;
+  gap: 56px;
   text-align: center;
 }
 
-.start-icon {
-  font-size: 80px;
-  margin-bottom: 24px;
-}
-
-.app-title {
-  font-size: 56px;
-  font-weight: 700;
-  color: #333;
-  margin: 0 0 32px 0;
-  letter-spacing: -0.5px;
-}
-
-.greeting {
-  font-size: 36px;
-  color: #555;
-  margin: 0 0 48px 0;
+.start-title {
+  font-size: clamp(48px, 6vw, 64px);
   font-weight: 500;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: #5a5148;
 }
 
-.mode-buttons {
+.start-subtitle {
+  font-size: clamp(28px, 3.5vw, 32px);
+  font-weight: 500;
+  margin: 18px 0 28px;
+  color: #8c8378;
+}
+
+.start-cards {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 400px;
+  gap: 48px;
 }
 
-.btn-large {
-  background-color: #E5E5E5;
-  color: #333;
-  border: none;
-  border-radius: 20px;
-  padding: 24px 24px;
-  font-size: 24px;
+.routine-card-option {
+  width: 100%;
+  min-height: 160px;
+  border-radius: 36px;
+  box-shadow: 0 32px 90px rgba(34, 27, 20, 0.05);
+  font-size: clamp(28px, 3.5vw, 36px);
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-.btn-large:hover {
-  background-color: #D0D0D0;
-}
-
-.btn-large:active {
-  background-color: #C0C0C0;
-}
-
-.child-selector {
-  margin-top: 64px;
-  width: 100%;
-}
-
-.child-selector p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 16px;
-}
-
-.children-buttons {
   display: flex;
-  gap: 12px;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-child {
-  background-color: #E5E5E5;
-  color: #333;
-  border: 3px solid transparent;
-  border-radius: 12px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 500;
+  text-align: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+  padding: 24px;
 }
 
-.btn-child:hover {
-  background-color: #D0D0D0;
+.routine-card-option:focus-visible {
+  outline: 3px solid rgba(80, 70, 60, 0.35);
 }
 
-.btn-child.active {
-  background-color: #B5E5D0;
-  border-color: #6cdba7;
+.routine-card-morning {
+  background-color: #efe2d0;
+}
+
+.routine-card-evening {
+  background-color: #e8dac7;
 }
 
 .update-banner {
